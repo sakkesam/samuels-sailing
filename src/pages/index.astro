@@ -1,49 +1,164 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { Image } from "astro:assets";
+import MainLayout from "../layouts/MainLayout.astro";
+
+import heroImage from "../assets/images/heroImage.jpg";
+import sakkechar from "../assets/images/sakkechar.jpg";
+
+const BOAT_ID = "6755394716189376";
+const embedUrl = `https://www.noforeignland.com/map/embed/${BOAT_ID}/10/on/day/`;
 ---
 
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<MainLayout>
+  <!-- HERO SECTION -->
+  <section>
+    <div class="grid hero-section">
+      <div class="hero-content">
+        <hgroup>
+          <h1>Welcome to Samuels Sailing</h1>
+          <p class="hero-text">
+            We are Charlotte & Sakke. We swapped our home for a sailboat and are
+            now sailing the world. Follow our adventures, learnings and
+            experiences as we explore the world from the sea.
+          </p>
+          <div class="hero-buttons">
+            <a href="/blog" role="button" class="hero-cta">Read Our Blog</a>
+            <a href="#location" role="button" class="hero-cta secondary"
+              >Where Are We?</a
+            >
+          </div>
+        </hgroup>
+      </div>
+      <div class="hero-image">
+        <Image
+          class="hero-image"
+          src={heroImage}
+          alt="Samuels Sailing"
+          loading="eager"
+        />
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO ARE WE SECTION -->
+  <section>
+    <div class="grid about-section">
+      <div>
+        <Image
+          src={sakkechar}
+          alt="Sakke and Charlotte on a sailboat"
+          class="about-image"
+          loading="eager"
+        />
+      </div>
+      <div>
+        <p class="about-heading-small">A little bit about us</p>
+        <h2 class="about-heading">We are Charlotte & Sakke</h2>
+        <p>
+          We were both working as PE teachers. During one of our holidays
+          Charlotte saw a boat anchored near the shore and asked "Why can't we
+          do that?". We both looked at eachother for a bit and thought "Why
+          can't we?".
+        </p>
+        <p>
+          We got back home and started planning for our future at sea. We did
+          our Competent Crew course in Greece and then our Day Skipper in
+          Gibraltar. After a few years of training and saving up for our
+          adventure we found a boat, quit our jobs and moved on board Wonderer.
+        </p>
+        <a href="/boat">Learn more about our boat Wonderer →</a>
+        <hr />
+        <p>
+          We moved on our boat in July 2026. The boat was moored in Cartagena,
+          Spain. We spent the whole month preparing our boat for living on board
+          and sailing around the Mediterranean sea (for now).
+        </p>
+        <a href="/blog">Read more on our blog →</a>
+        <hr />
+      </div>
+    </div>
+  </section>
+
+  <!-- LOCATION SECTION -->
+  <section id="location">
+    <div>
+      <hgroup>
+        <h2>Where are we now?</h2>
+        <p>Here is our current location and previous track</p>
+      </hgroup>
+      <iframe
+        src={embedUrl}
+        width="100%"
+        height="600"
+        style="border:0;"
+        allowfullscreen=""
+        loading="lazy"
+        title="Live boat location map"
+        class="w-full h-125 lg:h-162.5"></iframe>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+
+  .hero-content {
+    @media (width >= 32rem) {
+      align-content: center;
+    }
+  }
+  .hero-text {
+    margin-block: 1.5rem;
+    max-width: 50ch;
+  }
+  .hero-buttons {
+    display: flex;
+    justify-content: baseline;
+    flex-direction: row;
+    gap: 20px;
+
+    @media (width >= 62rem) {
+      justify-content: flex-start;
+    }
+  }
+  .hero-cta {
+    color: #fff;
+  }
+  .hero-image {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    border-radius: var(--pico-border-radius, 8px);
+  }
+
+  .about-section {
+    /* margin-block: 4rem; */
+    align-items: center;
+  }
+
+  .about-heading-small {
+    margin-block-end: 0;
+    color: var(--pico-primary);
+  }
+
+  .about-heading {
+    margin-block-start: 0px;
+  }
+
+  .about-image {
+    width: 100%;
+    max-height: 650px; /* Limits the height */
+
+    /* Crucial: prevents stretching and crops the overflow */
+    object-fit: cover;
+
+    /* Directs the crop focus (e.g. keeps faces visible near the top) */
+    object-position: center 50%;
+
+    border-radius: var(--pico-border-radius, 8px);
+  }
+
+  #location {
+    text-align: center;
+    margin-block-end: 1rem;
+  }
+</style>

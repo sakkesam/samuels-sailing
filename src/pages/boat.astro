@@ -1,0 +1,397 @@
+---
+import { Image } from "astro:assets";
+
+import MainLayout from "../layouts/MainLayout.astro";
+
+import wonderer from "../assets/images/wonderer.jpg";
+import cabin from "../assets/images/cabin.jpeg";
+import galley from "../assets/images/galley.jpeg";
+import head from "../assets/images/head.jpeg";
+import inside from "../assets/images/inside.jpeg";
+import outside from "../assets/images/outside.jpeg";
+import bedroom1 from "../assets/images/bedroom1.jpeg";
+import bedroom2 from "../assets/images/bedroom2.jpeg";
+import navdesk from "../assets/images/navdesk.jpg";
+
+const photos = [
+  {
+    src: cabin,
+    alt: "Main bedroom sink",
+    caption: "Main bedroom sink",
+  },
+  {
+    src: galley,
+    alt: "Wonderer Galley",
+    caption: "Our Galley (kitchen)",
+  },
+  {
+    src: head,
+    alt: "Head (toilet & shower)",
+    caption: "Head (toilet & shower)",
+  },
+  {
+    src: inside,
+    alt: "Wonderer Saloon",
+    caption: "Saloon",
+  },
+  {
+    src: outside,
+    alt: "Wonderer Cockpit",
+    caption: "Cockpit",
+  },
+  {
+    src: bedroom1,
+    alt: "Main Cabin",
+    caption: "Main Cabin",
+  },
+  {
+    src: bedroom2,
+    alt: "Aft Cabin",
+    caption: "Aft Cabin",
+  },
+  {
+    src: navdesk,
+    alt: "Navigation Desk",
+    caption: "Navigation Desk",
+  },
+];
+---
+
+<MainLayout>
+  <section>
+    <h1>Our Boat "Wonderer"</h1>
+    <div class="grid">
+      <div class="image">
+        <Image
+          class="hero-image"
+          src={wonderer}
+          alt="Samuels Sailing"
+          loading="eager"
+        />
+      </div>
+      <div class="content">
+        <p>
+          After swapping life on land for life at sea, Wonderer became our home.
+          She’s a Jeanneau Sun Odyssey optimized long stretches off the grid.
+          Whether we’re logging long passage miles or sitting quietly at anchor
+          in a hidden cove, she gives us everything we need to live simply and
+          explore comfortably.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="container">
+    <hgroup>
+      <h2>Photos of Wonderer</h2>
+      <p>Click any photo to view in full size</p>
+    </hgroup>
+
+    <!-- Thumbnail Grid -->
+    <div class="photo-grid">
+      {
+        photos.map((photo, index) => (
+          <figure class="photo-card">
+            <button
+              type="button"
+              class="img-trigger"
+              data-modal-target={`image-modal-${index}`}
+              aria-label={`Open full size view of ${photo.caption}`}
+            >
+              <Image src={photo.src} alt={photo.alt} />
+            </button>
+            <figcaption>{photo.caption}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+
+    <hr />
+    <div class="aside">
+      <p>If you're into boats this next section is for you.</p>
+      <p>
+        If you're not, why don't you go <a href="/blog">read our blog →</a>
+      </p>
+    </div>
+
+    <!-- Native HTML Modals -->
+    {
+      photos.map((photo, index) => (
+        <dialog id={`image-modal-${index}`} class="image-dialog">
+          <article class="modal-content">
+            <header>
+              <button
+                type="button"
+                aria-label="Close"
+                class="close"
+                data-modal-close={`image-modal-${index}`}
+              />
+              <h3>{photo.caption}</h3>
+            </header>
+            <div class="modal-body">
+              <Image src={photo.src} alt={photo.alt} class="full-size-img" />
+            </div>
+          </article>
+        </dialog>
+      ))
+    }
+  </section>
+
+  <section id="specs" class="container">
+    <hgroup>
+      <h2>Boat Specs</h2>
+      <p>Everything on and under the hood on Wonderer</p>
+    </hgroup>
+
+    <div class="grid">
+      <!-- Column 1: Core Dimensions & Construction -->
+      <article>
+        <h3>Vessel & Mechanical</h3>
+        <ul>
+          <li>
+            <strong>Make & Model:</strong> Jeanneau Sun Odyssey 40.3 (2005)
+          </li>
+          <li>
+            <strong>Designer & Hull:</strong> Daniel Andrieu / Solid Fiberglass
+          </li>
+          <li><strong>Engine:</strong> Yanmar 4JH4E (54hp) Marine Diesel</li>
+          <li>
+            <strong>Propulsion:</strong> Shaft drive
+          </li>
+          <li>
+            <strong>Dinghy & Outboard:</strong> Highfield UL 340 + ePropulsion eLite
+          </li>
+          <li>
+            <strong>Watermaker:</strong> MAB Basic 12V DC 60 L / h
+          </li>
+        </ul>
+      </article>
+
+      <!-- Column 2: Off-Grid Solar & Battery Power -->
+      <article>
+        <h3>Power & Off-Grid Setup</h3>
+        <ul>
+          <li>
+            <strong>Solar Array:</strong> 700W Total 4 times 175 Victron Mono panels
+          </li>
+          <li>
+            <strong>Solar Control:</strong> Victron SmartSolar MPPT 100/50
+          </li>
+          <li>
+            <strong>House Bank:</strong> 600 Ah Lithium 6 times 100Ah LiTime LiFePO4
+          </li>
+          <li>
+            <strong>Inverter/Charger:</strong> Victron MultiPlus 12V/3000/120
+          </li>
+          <li>
+            <strong>Monitoring & Regs:</strong> Victron Cerbo GX, Touch 50 & MaxPower
+            Reg
+          </li>
+          <li>
+            <strong>Starter Bank:</strong> Optima 50Ah with Victron Orion DC-DC Charger
+          </li>
+        </ul>
+      </article>
+
+      <!-- Column 3: Navigation, Ground Tackle & Safety -->
+      <article>
+        <h3>Ground Tackle & Navigation</h3>
+        <ul>
+          <li><strong>Primary Anchor:</strong> 25 kg Rocna</li>
+          <li>
+            <strong>Chain & Rode:</strong> 80 m Galvanized Chain
+          </li>
+          <li>
+            <strong>Windlass & Counter:</strong> Lofrans AIRON + Quick SMART CHC display
+          </li>
+          <li><strong>Navigation:</strong> Raymarine AXIOM+ 7 MFD Plotter</li>
+          <li>
+            <strong>Comms & AIS:</strong> Vesper Cortex V1 VHF/AIS + Starlink RV
+          </li>
+          <li>
+            <strong>Safety:</strong> Plastimo Cruiser 6 Liferaft + SEATEC 180 Jackets
+          </li>
+        </ul>
+      </article>
+    </div>
+  </section>
+</MainLayout>
+
+<script>
+  // Script runs on the client to handle opening, closing, and backdrop clicks
+  document.addEventListener("DOMContentLoaded", () => {
+    // Open modal handlers
+    document.querySelectorAll("[data-modal-target]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const modalId = button.getAttribute("data-modal-target");
+
+        if (!modalId) {
+          return;
+        }
+
+        const modal = document.getElementById(
+          modalId,
+        ) as HTMLDialogElement | null;
+        modal?.showModal();
+      });
+    });
+
+    // Close button handlers
+    document.querySelectorAll("[data-modal-close]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const modalId = button.getAttribute("data-modal-close");
+
+        if (!modalId) {
+          return;
+        }
+
+        const modal = document.getElementById(
+          modalId,
+        ) as HTMLDialogElement | null;
+        modal?.close();
+      });
+    });
+
+    // Close modal when clicking on the dark backdrop
+    document.querySelectorAll(".image-dialog").forEach((dialog) => {
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) {
+          (dialog as HTMLDialogElement).close();
+        }
+      });
+    });
+  });
+</script>
+
+<style>
+  .content {
+    align-content: center;
+  }
+
+  article {
+    border-radius: var(--pico-border-radius, 8px);
+  }
+
+  li {
+    list-style: none;
+  }
+
+  /* Ensures articles in the grid align cleanly */
+  #specs article {
+    height: 100%;
+    margin-bottom: 0;
+    padding: 2rem;
+  }
+
+  #specs ul {
+    padding-left: 0;
+    list-style: none;
+  }
+
+  #specs li {
+    padding: 0.75rem 0;
+    border-bottom: 2px solid var(--pico-muted-border-color);
+    font-size: 0.95rem;
+  }
+
+  #specs li:last-child {
+    border-bottom: none;
+  }
+
+  #specs strong {
+    color: var(--pico-primary);
+  }
+
+  h3 {
+    font-size: 1.15rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--pico-border-color);
+    padding-bottom: 0.75rem;
+  }
+  #gallery {
+    margin-top: var(--pico-block-spacing-vertical, 4rem);
+  }
+
+  .aside {
+    text-align: center;
+    margin-block: 2rem;
+  }
+
+  /* Responsive Auto-Fitting Grid */
+  .photo-grid {
+    display: grid;
+    /* Automatically fits columns (minimum 280px wide) */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+
+  /* Figure & Image Styling */
+  .photo-card {
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    background: var(--pico-card-background-color);
+    border: 1px solid var(--pico-border-color);
+    border-radius: var(--pico-border-radius, 8px);
+    overflow: hidden;
+    box-shadow: var(--pico-card-box-shadow);
+  }
+
+  .photo-card img {
+    width: 100%;
+    height: 240px; /* Fixed height for clean uniform grid rows */
+    object-fit: cover; /* Crops neatly without stretching photos */
+    object-position: center;
+    display: block;
+  }
+
+  .photo-card figcaption {
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+    color: var(--pico-muted-color);
+    text-align: center;
+    border-top: 1px solid var(--pico-border-color);
+  }
+
+  dialog.image-dialog[open] {
+    padding: 1rem; /* Reduces outer margin around the modal card */
+  }
+
+  /* Target the card container inside the open modal */
+  dialog.image-dialog[open] article {
+    max-width: 90vw;
+    width: fit-content; /* 🛑 Hugs the image width tight instead of stretching */
+    margin: 0 auto;
+    padding: 0; /* 🛑 Removes Pico's default vertical article padding */
+    overflow: hidden; /* Clips rounded corners cleanly around the image */
+  }
+
+  /* Style the modal header to keep title and close button compact */
+  dialog.image-dialog[open] header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--pico-border-color);
+  }
+
+  /* Style the body wrapper so dark backgrounds match the image */
+  dialog.image-dialog[open] .modal-body {
+    padding: 0;
+    background-color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Limit image height so it doesn't overflow the viewport */
+  dialog.image-dialog[open] img {
+    max-height: 75vh;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    display: block;
+  }
+</style>
