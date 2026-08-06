@@ -72,10 +72,10 @@ const photos = [
       <div class="content">
         <p>
           After swapping life on land for life at sea, Wonderer became our home.
-          She’s a Jeanneau Sun Odyssey optimized long stretches off the grid.
-          Whether we’re logging long passage miles or sitting quietly at anchor
-          in a hidden cove, she gives us everything we need to live simply and
-          explore comfortably.
+          She’s a Jeanneau Sun Odyssey optimized for long stretches off the
+          grid. Whether we’re logging long passage miles or sitting quietly at
+          anchor in a hidden cove, she gives us everything we need to live
+          simply and explore comfortably.
         </p>
       </div>
     </div>
@@ -84,7 +84,7 @@ const photos = [
   <section id="gallery" class="container">
     <hgroup>
       <h2>Photos of Wonderer</h2>
-      <p>Click any photo to view in full size</p>
+      <p>Click (or tap) any photo to view it in full size</p>
     </hgroup>
 
     <!-- Thumbnail Grid -->
@@ -108,7 +108,7 @@ const photos = [
 
     <hr />
     <div class="aside">
-      <p>If you're into boats this next section is for you.</p>
+      <p>If you're into boats, this next section is for you.</p>
       <p>
         If you're not, why don't you go <a href="/blog">read our blog →</a>
       </p>
@@ -172,20 +172,19 @@ const photos = [
         <h3>Power & Off-Grid Setup</h3>
         <ul>
           <li>
-            <strong>Solar Array:</strong> 700W Total 4 times 175 Victron Mono panels
+            <strong>Solar Array:</strong> 700W Total
           </li>
           <li>
             <strong>Solar Control:</strong> Victron SmartSolar MPPT 100/50
           </li>
           <li>
-            <strong>House Bank:</strong> 600 Ah Lithium 6 times 100Ah LiTime LiFePO4
+            <strong>House Bank:</strong> 600 Ah Lithium 6x 100Ah LiTime LiFePO4
           </li>
           <li>
             <strong>Inverter/Charger:</strong> Victron MultiPlus 12V/3000/120
           </li>
           <li>
-            <strong>Monitoring & Regs:</strong> Victron Cerbo GX, Touch 50 & MaxPower
-            Reg
+            <strong>Monitoring & Regs:</strong> Victron Cerbo GX, Touch 50
           </li>
           <li>
             <strong>Starter Bank:</strong> Optima 50Ah with Victron Orion DC-DC Charger
@@ -344,6 +343,7 @@ const photos = [
     object-fit: cover; /* Crops neatly without stretching photos */
     object-position: center;
     display: block;
+    image-orientation: from-image;
   }
 
   .photo-card figcaption {

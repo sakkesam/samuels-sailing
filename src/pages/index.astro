@@ -18,8 +18,8 @@ const embedUrl = `https://www.noforeignland.com/map/embed/${BOAT_ID}/10/on/day/`
           <h1>Welcome to Samuels Sailing</h1>
           <p class="hero-text">
             We are Charlotte & Sakke. We swapped our home for a sailboat and are
-            now sailing the world. Follow our adventures, learnings and
-            experiences as we explore the world from the sea.
+            now sailing the world. Follow our adventures and experiences as we
+            explore the world from the sea.
           </p>
           <div class="hero-buttons">
             <a href="/blog" role="button" class="hero-cta">Read Our Blog</a>
@@ -35,6 +35,9 @@ const embedUrl = `https://www.noforeignland.com/map/embed/${BOAT_ID}/10/on/day/`
           src={heroImage}
           alt="Samuels Sailing"
           loading="eager"
+          fetchpriority="high"
+          widths={[400, 800, 1200]}
+          sizes="(max-width: 600px) 400px, (max-width: 1000px) 800px, 1200px"
         />
       </div>
     </div>
@@ -48,7 +51,8 @@ const embedUrl = `https://www.noforeignland.com/map/embed/${BOAT_ID}/10/on/day/`
           src={sakkechar}
           alt="Sakke and Charlotte on a sailboat"
           class="about-image"
-          loading="eager"
+          widths={[400, 800]}
+          sizes="(max-width: 600px) 400px, 800px"
         />
       </div>
       <div>
@@ -56,22 +60,22 @@ const embedUrl = `https://www.noforeignland.com/map/embed/${BOAT_ID}/10/on/day/`
         <h2 class="about-heading">We are Charlotte & Sakke</h2>
         <p>
           We were both working as PE teachers. During one of our holidays
-          Charlotte saw a boat anchored near the shore and asked "Why can't we
-          do that?". We both looked at eachother for a bit and thought "Why
-          can't we?".
+          Charlotte saw a boat anchored near the shore and asked, "Why can't we
+          do that?" We both looked at each other for a bit and thought "Why
+          can't we?"
         </p>
         <p>
           We got back home and started planning for our future at sea. We did
           our Competent Crew course in Greece and then our Day Skipper in
           Gibraltar. After a few years of training and saving up for our
-          adventure we found a boat, quit our jobs and moved on board Wonderer.
+          adventure we found a boat, quit our jobs, and moved aboard Wonderer.
         </p>
         <a href="/boat">Learn more about our boat Wonderer →</a>
         <hr />
         <p>
-          We moved on our boat in July 2026. The boat was moored in Cartagena,
-          Spain. We spent the whole month preparing our boat for living on board
-          and sailing around the Mediterranean sea (for now).
+          We moved onto our boat in July 2026. The boat was moored in Cartagena,
+          Spain. We spent the whole month preparing our boat for living and
+          sailing around the Mediterranean Sea (for now).
         </p>
         <a href="/blog">Read more on our blog →</a>
         <hr />
@@ -85,6 +89,7 @@ const embedUrl = `https://www.noforeignland.com/map/embed/${BOAT_ID}/10/on/day/`
       <hgroup>
         <h2>Where are we now?</h2>
         <p>Here is our current location and previous track</p>
+        <hr />
       </hgroup>
       <iframe
         src={embedUrl}
@@ -95,8 +100,15 @@ const embedUrl = `https://www.noforeignland.com/map/embed/${BOAT_ID}/10/on/day/`
         loading="lazy"
         title="Live boat location map"
         class="w-full h-125 lg:h-162.5"></iframe>
+      <p>
+        This map requires us to manually log our trips on the <a
+          href="https://www.noforeignland.com/">noforeignland</a
+        > app which we sometimes forget to do. Don't be alarmed if it looks like our
+        boat has cut through land-that just means we forgot to start tracking 😅.
+      </p>
     </div>
   </section>
+  <hr />
 </MainLayout>
 
 <style>
@@ -158,6 +170,17 @@ const embedUrl = `https://www.noforeignland.com/map/embed/${BOAT_ID}/10/on/day/`
 
   #location {
     text-align: center;
-    margin-block-end: 1rem;
+    margin-block-end: 0rem;
+
+    & p {
+      max-width: 50ch;
+      text-align: center;
+      margin: 0 auto;
+    }
+  }
+
+  iframe {
+    padding-inline: 2rem;
+    padding-block: 1rem;
   }
 </style>

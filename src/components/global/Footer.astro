@@ -1,14 +1,38 @@
 ---
 const today = new Date();
+
+import HeaderLink from "../../components/global/HeaderLink.astro";
+import { Icon } from "astro-icon/components";
 ---
 
-<footer class="container">
-	&copy; {today.getFullYear()} Samuels Sailing. All rights reserved.
+<footer class="container-fluid">
+  <div class="container">
+    <HeaderLink
+      aria-label="Instagram link"
+      href="https://www.instagram.com/samuelssailing/?utm_source=ig_web_button_share_sheet"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="contrast social-link"
+      ><Icon
+        name="mdi:instagram"
+        size="24"
+        aria-hidden="true"
+      />Instagram</HeaderLink
+    >
+  </div>
+  <div>
+    &copy; {today.getFullYear()} Samuels Sailing. All rights reserved.
+  </div>
 </footer>
 
 <style>
-	footer {
-		text-align: center;
-		padding-block: 1rem;
-	}
+  footer {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-block: 1rem;
+	margin-block: 0;
+    gap: 1rem;
+	background-color: var(--pico-primary-background);
+  }
 </style>

@@ -1,7 +1,6 @@
 ---
 import { SITE_TITLE } from "../../consts";
 import HeaderLink from "./HeaderLink.astro";
-import { Icon } from "astro-icon/components";
 ---
 
 <header class="container-fluid">
@@ -11,26 +10,10 @@ import { Icon } from "astro-icon/components";
     </ul>
     <ul class="">
       <!-- <li><HeaderLink href="/" class="contrast">Home</HeaderLink></li> -->
-      <li><HeaderLink href="/boat" class="contrast">Our Boat</HeaderLink></li>
+      <li><HeaderLink href="/boat" class="contrast">Boat</HeaderLink></li>
       <li><HeaderLink href="/blog" class="contrast">Blog</HeaderLink></li>
       <li>
         <HeaderLink href="/#location" class="contrast">Location</HeaderLink>
-      </li>
-    </ul>
-    <ul>
-      <li>
-        <HeaderLink
-          aria-label="Instagram link"
-          href="https://www.instagram.com/samuelssailing/?utm_source=ig_web_button_share_sheet"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="contrast social-link"
-          ><Icon
-            name="mdi:instagram"
-            size="24"
-            aria-hidden="true"
-          /></HeaderLink
-        >
       </li>
     </ul>
   </nav>
