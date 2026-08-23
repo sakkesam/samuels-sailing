@@ -6,7 +6,7 @@ import heroImage from "../assets/images/heroImage.jpg";
 import sakkechar from "../assets/images/sakkechar.jpeg";
 
 const BOAT_ID = "6755394716189376";
-const embedUrl = `https://www.noforeignland.com/map/embed/${BOAT_ID}/10/on/day/`;
+const embedUrl = `https://www.noforeignland.com/home/map/embed/${BOAT_ID}/10/on/day`;
 ---
 
 <MainLayout>
@@ -84,28 +84,30 @@ const embedUrl = `https://www.noforeignland.com/map/embed/${BOAT_ID}/10/on/day/`
   </section>
 
   <!-- LOCATION SECTION -->
+  <!-- LOCATION SECTION -->
   <section id="location">
-    <div>
-      <hgroup>
-        <h2>Where are we now?</h2>
-        <p>Here is our current location and previous track</p>
-        <hr />
-      </hgroup>
-      <iframe
-        src={embedUrl}
-        width="100%"
-        height="600"
-        style="border:0;"
-        allowfullscreen=""
-        loading="lazy"
-        title="Live boat location map"
-        class="w-full h-125 lg:h-162.5"></iframe>
-      <p>
-        This map requires us to manually log our trips on the <a
-          href="https://www.noforeignland.com/">noforeignland</a
-        > app which we sometimes forget to do. Don't be alarmed if it looks like our
-        boat has cut through land-that just means we forgot to start tracking 😅.
-      </p>
+    <div class="location-wrapper">
+      <div class="tracking-card">
+        <div class="tracking-icon">📍</div>
+        <h3>Live Tracking on NoForeignLand</h3>
+        <p>
+          We log our live positions, passages, and anchorages aboard <em
+            >Wonderer</em
+          > directly on the NoForeignLand map.
+        </p>
+        <a
+          href="https://www.noforeignland.com/boat/6755394716189376"
+          target="_blank"
+          rel="noopener noreferrer"
+          role="button"
+          class="hero-cta"
+        >
+          View Live Map on NoForeignLand ↗
+        </a>
+        <small class="tracking-note">
+          Opens our official live tracking page in a new tab.
+        </small>
+      </div>
     </div>
   </section>
   <hr />
@@ -170,17 +172,50 @@ const embedUrl = `https://www.noforeignland.com/map/embed/${BOAT_ID}/10/on/day/`
 
   #location {
     text-align: center;
-    margin-block-end: 0rem;
-
-    & p {
-      max-width: 50ch;
-      text-align: center;
-      margin: 0 auto;
-    }
+    margin-block-end: 3rem;
   }
 
-  iframe {
-    padding-inline: 2rem;
-    padding-block: 1rem;
+  .location-wrapper {
+    max-width: 750px;
+    margin: 0 auto;
+  }
+
+  .tracking-card {
+    padding: 2.5rem 1.5rem;
+    margin-block: 2rem;
+    background: var(--pico-card-background-color, #1e232a);
+    border: 1px solid var(--pico-muted-border-color, rgba(255, 255, 255, 0.1));
+    border-radius: var(--pico-border-radius, 8px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .tracking-icon {
+    font-size: 2.5rem;
+    line-height: 1;
+  }
+
+  .tracking-card h3 {
+    margin-block: 0;
+  }
+
+  .tracking-card p {
+    max-width: 45ch;
+    margin: 0 auto;
+  }
+
+  .tracking-note {
+    color: var(--pico-muted-color, #888);
+    font-size: 0.85rem;
+  }
+
+  .disclaimer-text {
+    max-width: 50ch;
+    margin: 1.5rem auto 0;
+    font-size: 0.95rem;
+    color: var(--pico-muted-color, #aaa);
   }
 </style>
