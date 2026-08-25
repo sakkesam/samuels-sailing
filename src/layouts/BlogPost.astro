@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import BaseHead from "../components/global/BaseHead.astro";
 import Footer from "../components/global/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
@@ -9,6 +9,34 @@ import Header from "../components/global/Header.astro";
 type Props = CollectionEntry<"blog">["data"];
 
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+
+// 1. Fetch all blog posts
+const posts = await getCollection("blog");
+
+// 2. Helper to get clean slug regardless of Astro version (slug or id)
+const getPostSlug = (post: CollectionEntry<"blog">) =>
+  post.slug ?? post.id.replace(/\.(md|mdx)$/, "");
+
+// 3. Sort posts chronologically by date
+const sortedPosts = posts.sort(
+  (a, b) =>
+    new Date(a.data.pubDate).valueOf() - new Date(b.data.pubDate).valueOf(),
+);
+
+// 4. Find current post index by comparing timestamp or title
+const currentPostIndex = sortedPosts.findIndex(
+  (post) =>
+    new Date(post.data.pubDate).valueOf() === new Date(pubDate).valueOf() ||
+    post.data.title === title,
+);
+
+// 5. Safely extract previous and next posts
+const prevPost =
+  currentPostIndex > 0 ? sortedPosts[currentPostIndex - 1] : null;
+const nextPost =
+  currentPostIndex !== -1 && currentPostIndex < sortedPosts.length - 1
+    ? sortedPosts[currentPostIndex + 1]
+    : null;
 
 import "@picocss/pico/css/pico.min.css";
 import "../styles/global.css";
@@ -43,6 +71,7 @@ import "../styles/global.css";
         </svg>
         <span class="btn-text">Back to posts</span>
       </a>
+
       <article class="blog-article">
         <!-- Post Header -->
         <header class="article-header">
@@ -82,6 +111,40 @@ import "../styles/global.css";
         <div class="prose">
           <slot />
         </div>
+
+        <!-- Post Navigation (Prev / Next) -->
+        {
+          (prevPost || nextPost) && (
+            <nav class="post-navigation" aria-label="Post navigation">
+              <hr />
+              <div class="grid nav-grid">
+                {prevPost ? (
+                  <a
+                    href={`/blog/${getPostSlug(prevPost)}/`}
+                    class="nav-card prev"
+                  >
+                    <span class="nav-label">← Previous Post</span>
+                    <span class="nav-title">{prevPost.data.title}</span>
+                  </a>
+                ) : (
+                  <div class="nav-card-empty" />
+                )}
+
+                {nextPost ? (
+                  <a
+                    href={`/blog/${getPostSlug(nextPost)}/`}
+                    class="nav-card next"
+                  >
+                    <span class="nav-label">Next Post →</span>
+                    <span class="nav-title">{nextPost.data.title}</span>
+                  </a>
+                ) : (
+                  <div class="nav-card-empty" />
+                )}
+              </div>
+            </nav>
+          )
+        }
       </article>
     </main>
 
@@ -105,7 +168,7 @@ import "../styles/global.css";
     color: var(--pico-color);
     background-color: var(--pico-card-background-color);
     border: 1px solid var(--pico-border-color);
-    border-radius: 50px; /* Pill shape */
+    border-radius: 50px;
     box-shadow: var(--pico-card-box-shadow);
     text-decoration: none;
     backdrop-filter: blur(8px);
@@ -129,7 +192,6 @@ import "../styles/global.css";
     transform: translateX(-3px);
   }
 
-  /* Responsive Mobile Tweak: On narrow screens, turn into an icon button */
   @media (max-width: 64rem) {
     .floating-back-btn {
       left: 1rem;
@@ -138,10 +200,10 @@ import "../styles/global.css";
     }
 
     .floating-back-btn .btn-text {
-      display: none; /* Hide label text on mobile to save screen space */
+      display: none;
     }
   }
-  /* Limit maximum reading width for optimal typography */
+
   .blog-article {
     max-width: 780px;
     margin: 0 auto;
@@ -151,7 +213,6 @@ import "../styles/global.css";
     background: transparent;
   }
 
-  /* Article Header */
   .article-header {
     text-align: center;
     margin-bottom: 2rem;
@@ -188,7 +249,6 @@ import "../styles/global.css";
     line-height: 1.5;
   }
 
-  /* Hero Image */
   .hero-image-wrapper {
     margin-bottom: 2.5rem;
     border-radius: var(--pico-border-radius, 8px);
@@ -204,14 +264,12 @@ import "../styles/global.css";
     display: block;
   }
 
-  /* Markdown Body Formatting (.prose) */
   .prose {
     font-size: 1.05rem;
     line-height: 1.75;
     color: var(--pico-color);
   }
 
-  /* Heading Anchors & Margins */
   .prose :global(h2) {
     font-size: 1.6rem;
     margin-top: 2.5rem;
@@ -226,7 +284,6 @@ import "../styles/global.css";
     margin-bottom: 0.75rem;
   }
 
-  /* Paragraphs & Lists */
   .prose :global(p) {
     margin-bottom: 1.5rem;
   }
@@ -241,7 +298,6 @@ import "../styles/global.css";
     margin-bottom: 0.4rem;
   }
 
-  /* Blockquotes */
   .prose :global(blockquote) {
     margin: 2rem 0;
     padding: 1rem 1.5rem;
@@ -256,7 +312,6 @@ import "../styles/global.css";
     margin-bottom: 0;
   }
 
-  /* Inline Code & Code Blocks */
   .prose :global(code:not(pre code)) {
     padding: 0.2rem 0.4rem;
     font-size: 0.875em;
@@ -274,7 +329,6 @@ import "../styles/global.css";
     overflow-x: auto;
   }
 
-  /* Content Images */
   .prose :global(img) {
     width: 100%;
     height: auto;
@@ -283,9 +337,86 @@ import "../styles/global.css";
     box-shadow: var(--pico-card-box-shadow);
   }
 
-  /* Tables */
   .prose :global(table) {
     width: 100%;
     margin: 2rem 0;
+  }
+
+  /* Post Navigation (Prev/Next Cards) */
+  .post-navigation {
+    margin-top: 3.5rem;
+  }
+
+  .post-navigation hr {
+    margin-bottom: 2rem;
+  }
+
+  .nav-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+
+  .nav-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+    border-radius: var(--pico-border-radius, 8px);
+    background-color: var(--pico-card-background-color);
+    border: 1px solid var(--pico-border-color);
+    text-decoration: none;
+    transition:
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .nav-card:hover {
+    border-color: var(--pico-primary);
+    transform: translateY(-2px);
+  }
+
+  .nav-card.next {
+    text-align: right;
+    align-items: flex-end;
+  }
+
+  .nav-card.prev {
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .nav-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    color: var(--pico-primary);
+    margin-bottom: 0.35rem;
+  }
+
+  .nav-title {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--pico-color);
+  }
+
+  .nav-card-empty {
+    display: block;
+  }
+
+  @media (max-width: 40rem) {
+    .nav-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .nav-card.next {
+      text-align: left;
+      align-items: flex-start;
+    }
+
+    .nav-card-empty {
+      display: none;
+    }
   }
 </style>

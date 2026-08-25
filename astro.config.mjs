@@ -3,6 +3,7 @@
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 import { defineConfig, fontProviders } from "astro/config";
+import rehypeExternalLinks from "rehype-external-links";
 
 import icon from "astro-icon";
 
@@ -12,7 +13,17 @@ import netlify from "@astrojs/netlify";
 export default defineConfig({
   site: "https://example.com",
   integrations: [mdx(), sitemap(), icon()],
-
+  markdown: {
+    rehypePlugins: [
+      [
+        rehypeExternalLinks,
+        {
+          target: "_blank",
+          rel: ["noopener", "noreferrer"],
+        },
+      ],
+    ],
+  },
   fonts: [
     {
       provider: fontProviders.local(),
