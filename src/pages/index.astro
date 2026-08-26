@@ -1,9 +1,9 @@
 ---
 import { Image } from "astro:assets";
 import MainLayout from "../layouts/MainLayout.astro";
-
 import heroImage from "../assets/images/heroImage.jpg";
 import sakkechar from "../assets/images/sakkechar.jpeg";
+import Header from '../components/global/Header.astro';
 
 const BOAT_ID = "6755394716189376";
 const embedUrl = `https://www.noforeignland.com/home/map/embed/${BOAT_ID}/10/on/day`;
@@ -57,7 +57,7 @@ const embedUrl = `https://www.noforeignland.com/home/map/embed/${BOAT_ID}/10/on/
       </div>
       <div>
         <p class="about-heading-small">A little bit about us</p>
-        <h2 class="about-heading">We are Charlotte & Sakke</h2>
+        <h2 class="about-heading">We are Charlotte &amp; Sakke</h2>
         <p>
           We were both working as PE teachers. During one of our holidays
           Charlotte saw a boat anchored near the shore and asked, "Why can't we
@@ -219,3 +219,4 @@ const embedUrl = `https://www.noforeignland.com/home/map/embed/${BOAT_ID}/10/on/
     color: var(--pico-muted-color, #aaa);
   }
 </style>
+<Header />
