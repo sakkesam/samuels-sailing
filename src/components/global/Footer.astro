@@ -13,11 +13,9 @@ import { Icon } from "astro-icon/components";
       target="_blank"
       rel="noopener noreferrer"
       class="contrast social-link"
-      ><Icon
-        name="mdi:instagram"
-        size="24"
-        aria-hidden="true"
-      />Instagram</HeaderLink
+    >
+      <Icon name="mdi:instagram" size="24" aria-hidden="true" />
+      Instagram</HeaderLink
     >
   </div>
   <div>
@@ -31,8 +29,14 @@ import { Icon } from "astro-icon/components";
     flex-direction: column;
     text-align: center;
     padding-block: 1rem;
-	margin-block: 0;
+    margin-block: 0;
     gap: 1rem;
-	background-color: var(--pico-primary-background);
+    background-color: var(--pico-primary-background);
+  }
+
+  .social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 </style>
