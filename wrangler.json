@@ -2,7 +2,6 @@
   "name": "samuels-sailing",
   "compatibility_date": "2026-08-26",
   "assets": {
-    "directory": "./dist",
-    "binding": "ASSETS"
+    "directory": "./dist"
   }
 }
